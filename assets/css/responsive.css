@@ -12,20 +12,25 @@
 
 /* Desktop & Small Laptops (max-width: 1200px) */
 @media (max-width: 1200px) {
+
   .services-grid-4,
   .industries-visual-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .industries-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .nav-phone-link span {
     display: none;
   }
+
   .hero-floating-card.card-top-left {
     left: 10px;
     top: 10px;
   }
+
   .hero-floating-card.card-bottom-right {
     right: 10px;
     bottom: 10px;
@@ -116,6 +121,7 @@
   .bento-span-5 {
     grid-column: span 6;
   }
+
   .bento-span-4 {
     grid-column: span 6;
   }
@@ -124,10 +130,13 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
+
   .why-stat-box:nth-child(2) {
     border-right: none;
   }
-  .why-grid {
+
+  .why-grid,
+  .why-grid-modern {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -176,76 +185,183 @@
   }
 
   .navbar-container {
-    height: 72px;
+    height: 76px;
+    justify-content: space-between;
   }
 
-  .brand-logo img {
-    height: 44px;
+  .site-header.scrolled .navbar-container {
+    height: 70px;
+  }
+
+  /* Left-aligned Brand Logo on Mobile Header with Increased Size/Width */
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .brand-logo img,
+  .site-header.scrolled .brand-logo img {
+    height: 54px;
+    max-height: 54px;
+    width: auto;
   }
 
   .nav-menu {
-    top: 72px;
-    height: calc(100vh - 72px);
+    top: 76px;
+    height: calc(100vh - 76px);
+  }
+
+  .site-header.scrolled .nav-menu {
+    top: 70px;
+    height: calc(100vh - 70px);
+  }
+
+  .nav-actions {
+    position: relative;
+    z-index: 11;
   }
 
   .nav-actions .btn-primary {
-    padding: 10px 16px;
-    font-size: 0.84rem;
+    padding: 9px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* ==========================================================================
+     MOBILE HERO SECTION (ITEMS 1, 2, 3)
+     - Slider image comes FIRST
+     - Title and buttons come SECOND
+     - Description text removed
+     - Controls dock hidden (Screenshot 2 hidden)
+     - Nothing else displayed on mobile
+     ========================================================================== */
+
+  /* 3. Hide Screenshot 2 (hero slider navigation dock) in mobile view */
+  .hero-slider-controls {
+    display: none !important;
   }
 
   .hero-slider-section {
     min-height: auto;
+    padding-top: 14px;
+    padding-bottom: 24px;
   }
 
   .hero-slider-container {
-    padding: 32px 0 22px;
+    padding: 8px 0 16px;
   }
 
-  .slider-controls-inner {
+  .hero-slide-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* 2. Slider visual comes UP FIRST in mobile view */
+  .hero-visual {
+    order: 1;
     width: 100%;
-    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  .hero-image-frame {
+    aspect-ratio: 16 / 10;
+    width: 100%;
     border-radius: 18px;
-    padding: 8px;
-    gap: 6px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
   }
 
-  .slider-dots {
-    flex: 1;
+  /* Hide floating cards and notifications on mobile (nothing else) */
+  .hero-floating-card,
+  .hero-floating-card.card-top-left,
+  .hero-floating-card.card-bottom-right,
+  .hero-live-notification {
+    display: none !important;
+  }
+
+  /* Content comes SECOND */
+  .hero-content {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Hide badge on mobile: nothing else */
+  .hero-badge {
+    display: none !important;
+  }
+
+  /* Title: "thn text" */
+  .hero-title {
+    order: 1;
+    font-size: clamp(1.55rem, 6vw, 2.05rem) !important;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  /* 1. Remove that text (hero-description) from screenshot in mobile view */
+  .hero-description {
+    display: none !important;
+  }
+
+  /* Hide channel pills: nothing else */
+  .hero-channel-pills {
+    display: none !important;
+  }
+
+  /* Buttons: "and button" formatted properly and beautifully */
+  .hero-cta-group {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 4px;
+    margin-bottom: 0;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    min-height: 48px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 10px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .slider-dot {
-    flex: 1;
-    justify-content: center;
-    padding: 8px 8px;
-    gap: 6px;
+  .hero-cta-group .btn-primary {
+    background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+    color: #FFFFFF;
+    border: none;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
   }
 
-  .slider-dot-text small {
-    display: none;
+  .hero-cta-group .btn-outline-light {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(255, 255, 255, 0.32);
+    color: #FFFFFF;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
-  .slider-dot-text strong {
-    font-size: 0.72rem;
+  .hero-cta-group .btn:active {
+    transform: scale(0.98);
   }
 
-  .slider-dot-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 0.80rem;
-  }
-
-  .slider-arrow {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-  }
-
-  .slider-counter {
-    display: none;
-  }
-
+  /* Bento Grid Responsive Collapse */
   .bento-grid {
     grid-template-columns: 1fr;
   }
@@ -256,29 +372,53 @@
     grid-column: span 1;
   }
 
+  /* Why Choose Us Ribbon on Mobile */
   .why-stats-ribbon {
     grid-template-columns: 1fr;
-    gap: 14px;
+    border-radius: 20px;
     padding: 18px 20px;
+    gap: 14px;
   }
+
   .why-stat-box:not(:last-child) {
     border-right: none;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.12);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.85);
     padding-right: 0;
     padding-bottom: 12px;
   }
-  .why-grid {
+
+  .why-grid,
+  .why-grid-modern {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
-  .why-bottom-cta {
+
+  /* Why Choose Us Bottom CTA Banner on Mobile */
+  .why-bottom-cta-banner {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
+    align-items: stretch;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 18px;
+    border-radius: 20px;
   }
-  .why-bottom-cta-actions {
+
+  .why-banner-text h3 {
+    font-size: 1.22rem;
+  }
+
+  .why-banner-text p {
+    font-size: 0.88rem;
+  }
+
+  .why-banner-actions {
+    flex-direction: column;
     width: 100%;
+    gap: 10px;
   }
-  .why-bottom-cta-actions .btn {
+
+  .why-banner-btn-white,
+  .why-banner-btn-whatsapp {
     width: 100%;
     justify-content: center;
   }
@@ -372,9 +512,44 @@
     width: 100%;
     justify-content: center;
   }
+
+  /* Left-aligned Footer Brand & Enlarged Logo on Mobile */
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .footer-brand a {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+  }
+
+  .footer-brand img {
+    height: 66px;
+    width: auto;
+    margin: 0 0 18px 0;
+    display: block;
+  }
+
+  .footer-brand p {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 460px;
+  }
+
+  .footer-brand .social-links {
+    justify-content: flex-start;
+    margin: 0;
+  }
 }
 
-/* Mobile Phones (320px - 480px) */
 @media (max-width: 480px) {
   .container {
     padding: 0 15px;
@@ -389,8 +564,41 @@
     height: 34px;
   }
 
-  .brand-logo img {
-    height: 38px;
+  .navbar-container {
+    height: 74px;
+    justify-content: space-between;
+  }
+
+  .site-header.scrolled .navbar-container {
+    height: 68px;
+  }
+
+  /* Left-aligned Brand Logo on Mobile Header with Increased Size/Width */
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .brand-logo img,
+  .site-header.scrolled .brand-logo img {
+    height: 50px;
+    max-height: 50px;
+    width: auto;
+  }
+
+  .nav-menu {
+    top: 74px;
+    height: calc(100vh - 74px);
+  }
+
+  .site-header.scrolled .nav-menu {
+    top: 68px;
+    height: calc(100vh - 68px);
+  }
+
+  .nav-actions .btn-primary {
+    padding: 8px 12px;
   }
 
   .nav-actions .btn-primary span {
@@ -411,11 +619,7 @@
     display: none;
   }
 
-  .hero-floating-card.card-bottom-right {
-    position: static;
-    margin-top: 12px;
-    width: 100%;
-  }
+  .hero-floating-card { display: none !important; }
 
   .slider-dot-text {
     display: none;
@@ -434,6 +638,19 @@
   .industries-grid,
   .footer-main-grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer-brand img {
+    height: 64px;
+    margin: 0 0 16px 0;
+  }
+
+  .footer-brand p {
+    text-align: left;
+    font-size: 0.88rem;
+    max-width: 340px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .footer-map-section {
@@ -481,5 +698,19 @@
 
   .footer-legal-links {
     justify-content: center;
+  }
+}
+
+/* Extra-small Mobile Devices (max-width: 360px) */
+@media (max-width: 360px) {
+
+  .brand-logo img,
+  .site-header.scrolled .brand-logo img {
+    height: 44px;
+    max-height: 44px;
+  }
+
+  .footer-brand img {
+    height: 58px;
   }
 }

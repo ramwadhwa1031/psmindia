@@ -120,18 +120,44 @@
   }
 
   /**
-   * 4. Interactive Communication Showcase Tabs
+   * 4. Interactive Communication Showcase Tabs (Carousel Auto-Rotation)
    */
   function initShowcaseTabs() {
+    var showcase = document.getElementById('communicationShowcase');
     var tabBtns = document.querySelectorAll('.showcase-tab-btn');
     var panes = document.querySelectorAll('.showcase-pane');
     if (!tabBtns.length || !panes.length) return;
 
-    function activateTab(targetId) {
-      tabBtns.forEach(function (btn) {
-        var isMatch = btn.getAttribute('data-target') === targetId;
+    var currentIndex = 0;
+    var autoPlayTimer = null;
+    var duration = 4500; // 4.5 seconds per channel slide
+    var isPaused = false;
+
+    // Detect initial active tab
+    tabBtns.forEach(function (btn, idx) {
+      if (btn.classList.contains('active')) {
+        currentIndex = idx;
+      }
+    });
+
+    function activateTab(index, animateProgress) {
+      if (index < 0 || index >= tabBtns.length) index = 0;
+      currentIndex = index;
+
+      var targetId = tabBtns[currentIndex].getAttribute('data-target');
+
+      tabBtns.forEach(function (btn, idx) {
+        var isMatch = idx === currentIndex;
         btn.classList.toggle('active', isMatch);
         btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+
+        // Reset and trigger progress bar animation on active tab
+        btn.classList.remove('animating');
+        if (isMatch && animateProgress !== false) {
+          // Trigger reflow to restart CSS animation cleanly
+          void btn.offsetWidth;
+          btn.classList.add('animating');
+        }
       });
 
       panes.forEach(function (pane) {
@@ -140,14 +166,71 @@
       });
     }
 
-    tabBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var targetId = btn.getAttribute('data-target');
-        if (targetId) {
-          activateTab(targetId);
+    function nextTab() {
+      var nextIndex = (currentIndex + 1) % tabBtns.length;
+      activateTab(nextIndex, true);
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      isPaused = false;
+      autoPlayTimer = setInterval(function () {
+        if (!isPaused) {
+          nextTab();
         }
+      }, duration);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    // Manual tab click handling
+    tabBtns.forEach(function (btn, idx) {
+      btn.addEventListener('click', function () {
+        activateTab(idx, true);
+        startAutoPlay(); // Restart timer from user selection
       });
     });
+
+    // Pause auto-rotation on desktop mouse hover
+    if (showcase) {
+      showcase.addEventListener('mouseenter', function () {
+        isPaused = true;
+      });
+      showcase.addEventListener('mouseleave', function () {
+        isPaused = false;
+      });
+
+      // Pause during mobile touch interaction, resume after 3s
+      var touchTimeout = null;
+      showcase.addEventListener('touchstart', function () {
+        isPaused = true;
+        if (touchTimeout) clearTimeout(touchTimeout);
+      }, { passive: true });
+
+      showcase.addEventListener('touchend', function () {
+        touchTimeout = setTimeout(function () {
+          isPaused = false;
+        }, 3000);
+      }, { passive: true });
+    }
+
+    // Pause when window or tab is hidden
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stopAutoPlay();
+      } else {
+        startAutoPlay();
+      }
+    });
+
+    // Start initial tab and carousel timer
+    activateTab(currentIndex, true);
+    startAutoPlay();
   }
 
   /**

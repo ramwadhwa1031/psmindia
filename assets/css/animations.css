@@ -1,0 +1,210 @@
+/* ==========================================================================
+   PS MESSAGE INDIA — ANIMATIONS & INTERACTIONS
+   Reversible scroll animations, progressive enhancement, reduced-motion safe
+   ========================================================================== */
+
+/* Progressive Enhancement: Default visible if JS fails to load */
+[data-reveal] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* When JS initializes bidirectional observer/GSAP */
+html.js-anim-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html.js-anim-ready [data-reveal="fade-left"] {
+  transform: translate3d(-28px, 0, 0);
+}
+
+html.js-anim-ready [data-reveal="fade-right"] {
+  transform: translate3d(28px, 0, 0);
+}
+
+html.js-anim-ready [data-reveal="zoom-in"] {
+  transform: scale(0.95);
+}
+
+html.js-anim-ready [data-reveal].is-inview {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Stagger Delays */
+[data-delay="100"] { transition-delay: 0.08s !important; }
+[data-delay="200"] { transition-delay: 0.16s !important; }
+[data-delay="300"] { transition-delay: 0.24s !important; }
+[data-delay="400"] { transition-delay: 0.32s !important; }
+
+/* Hero Slide Entrance Keyframes (Staggered Multi-Layer Spring Reveal) */
+.hero-slide.active .hero-badge {
+  animation: heroSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.04s both;
+}
+
+.hero-slide.active .hero-title {
+  animation: heroTitleReveal 0.72s cubic-bezier(0.16, 1, 0.3, 1) 0.10s both;
+}
+
+.hero-slide.active .hero-description {
+  animation: heroSlideUp 0.68s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+.hero-slide.active .hero-cta-group {
+  animation: heroSlideUp 0.68s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.hero-slide.active .hero-channel-pills .channel-pill:nth-child(1) {
+  animation: heroPillPop 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.30s both;
+}
+.hero-slide.active .hero-channel-pills .channel-pill:nth-child(2) {
+  animation: heroPillPop 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+}
+.hero-slide.active .hero-channel-pills .channel-pill:nth-child(3) {
+  animation: heroPillPop 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
+.hero-slide.active .hero-channel-pills .channel-pill:nth-child(4) {
+  animation: heroPillPop 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+}
+
+.hero-slide.active .hero-visual {
+  animation: heroVisualScale 0.88s cubic-bezier(0.16, 1, 0.3, 1) 0.10s both;
+}
+
+.hero-slide.active .hero-live-notification {
+  animation: heroPillPop 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+.hero-slide.active .hero-floating-card.card-top-left {
+  animation: heroCardFloat 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
+}
+
+.hero-slide.active .hero-floating-card.card-bottom-right {
+  animation: heroCardFloat 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both;
+}
+
+@keyframes heroCardFloat {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, -30px) scale(0.85);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroTitleReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 34px, 0) scale(0.98);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroPillPop {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes heroVisualScale {
+  from {
+    opacity: 0;
+    transform: perspective(1400px) translate3d(40px, 16px, -60px) rotateY(-10deg) scale(0.90);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Subtle Floating Animation for Hero Cards */
+.hero-floating-card.card-top-left {
+  animation: floatGentle 5s ease-in-out infinite;
+}
+
+.hero-floating-card.card-bottom-right {
+  animation: floatGentle 6s ease-in-out 1.2s infinite;
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* Pulse ring for WhatsApp Floating Button */
+.floating-btn.whatsapp-float::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.45);
+  animation: pulseRing 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.28);
+    opacity: 0;
+  }
+}
+
+/* Respect Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html.js-anim-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+

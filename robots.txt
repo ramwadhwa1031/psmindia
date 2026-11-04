@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow temporary or hidden directories if any
+Disallow: /cgi-bin/
+
+Sitemap: https://psmessageindia.com/sitemap.xml
+

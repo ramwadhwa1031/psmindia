@@ -69,9 +69,16 @@
       if (!triggerLink) return;
 
       triggerLink.addEventListener('click', function (e) {
-        if (window.innerWidth <= 1024) {
+        var href = triggerLink.getAttribute('href') || '';
+        if (window.innerWidth <= 1024 || href.charAt(0) === '#') {
           e.preventDefault();
-          item.classList.toggle('dropdown-open');
+          var wasOpen = item.classList.contains('dropdown-open');
+          dropdownItems.forEach(function (other) {
+            other.classList.remove('dropdown-open');
+          });
+          if (!wasOpen) {
+            item.classList.add('dropdown-open');
+          }
         }
       });
     });
